@@ -1,0 +1,10 @@
+{
+    "name": "admin/project",
+    "type": "project",
+    "minimum-stability": "stable",
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.7",
+        "twig/twig": "^3.10"
+    }
+}
