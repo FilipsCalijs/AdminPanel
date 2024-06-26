@@ -10807,11 +10807,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default().get("./api", data => {
-  data.forEach(file => {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").append(`<h1>${file}</h1>`);
+function getPageList() {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()("h1").remove();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default().get("./api", data => {
+    data.forEach(file => {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").append(`<h1>${file}</h1>`);
+    });
+  }, "JSON");
+}
+getPageList();
+jquery__WEBPACK_IMPORTED_MODULE_0___default()("button").on('click', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default().post("./api/createNewPage.php", {
+    "name": jquery__WEBPACK_IMPORTED_MODULE_0___default()("input").val()
+  }, () => {
+    getPageList();
+  }).fail(() => {
+    alert("Страница уже существует!");
   });
-}, "JSON");
+});
 })();
 
 /******/ })()
