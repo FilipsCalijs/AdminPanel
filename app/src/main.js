@@ -9,7 +9,7 @@ ReactDOM.render(<Editor/>, document.getElementById('root'));
 //     $("h1").remove();
 //     $.get("./api", data => {
 //         data.forEach(file => {
-//             $("body").append(`<h1>${file}</h1>`)
+//             $("body").append(<h1>${file}</h1>)
 //         })
 //     }, "JSON");
 // }
