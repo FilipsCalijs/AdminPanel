@@ -39,6 +39,11 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
       "name": this.state.newPageName
     }).then(this.LoadPageList()).catch(() => alert("Страница уже существует!"));
   }
+  deletePage(page) {
+    axios__WEBPACK_IMPORTED_MODULE_1__["default"].post("./api/deletePage.php", {
+      "name": page
+    }).then(this.LoadPageList()).catch(() => alert("Страница не существует!"));
+  }
   render() {
     const {
       pageList
@@ -46,7 +51,10 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     const pages = pageList.map((page, i) => {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
         key: i
-      }, page);
+      }, page, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+        href: "#",
+        onClick: () => this.deletePage(page)
+      }, "(X)"));
     });
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       onChange: e => {
