@@ -5,7 +5,7 @@ const sass = require("gulp-sass")(require('sass'));
 
                 // window: B:/promma/xampp/htdocs/react_admin/project/admin
                 // mac: /Users/Filip/Desktop/Programma/PHP/project/admin
-const dist = "B:/promma/xampp/htdocs/react_admin/project/admin";
+const dist = "/Users/Filip/Desktop/Programma/PHP/project/admin";
 
 gulp.task("copy-html", () => {
     return gulp.src("./app/src/index.html")
