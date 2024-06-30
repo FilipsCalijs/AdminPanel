@@ -24,32 +24,42 @@ export default class Editor extends Component {
     }
 
     open(page) {
-        this.currentPage = `../${page}`;
-        this.iframe.load(this.currentPage, () => {
-            const body = this.iframe.contentDocument.body;
-            let textNodes = [];
+        this.currentPage = `../${page}?rnd=${Math.random()}`;
 
-            function recursy(element) {
-                element.childNodes.forEach(node => {
+
+        axios
+        .get(`../${page}`)
+        .then(res => console.log(this.parseStrToDOM(res.data)))
+        // this.iframe.load(this.currentPage, () => {
+        //     const body = this.iframe.contentDocument.body;
+        //     let textNodes = [];
+
+        //     function recursy(element) {
+        //         element.childNodes.forEach(node => {
                     
-                    if(node.nodeName === "#text" && node.nodeValue.replace(/\s+/g, "").length > 0) {
-                        textNodes.push(node);
-                    } else {
-                        recursy(node);
-                    }
-                })
-            };
+        //             if(node.nodeName === "#text" && node.nodeValue.replace(/\s+/g, "").length > 0) {
+        //                 textNodes.push(node);
+        //             } else {
+        //                 recursy(node);
+        //             }
+        //         })
+        //     };
 
-            recursy(body);
+        //     recursy(body);
 
-            textNodes.forEach(node => {
-                const wrapper = this.iframe.contentDocument.createElement('text-editor');
-                node.parentNode.replaceChild(wrapper, node);
-                wrapper.appendChild(node);
-                wrapper.contentEditable = "true";
-            });
+        //     textNodes.forEach(node => {
+        //         const wrapper = this.iframe.contentDocument.createElement('text-editor');
+        //         node.parentNode.replaceChild(wrapper, node);
+        //         wrapper.appendChild(node);
+        //         wrapper.contentEditable = "true";
+        //     });
 
-        });
+        // });
+    }
+
+    parseStrToDOM(str) {
+        var parser = new DOMParser();
+        return parser.parseFromString(str, "text/html");   
     }
 
     loadPageList() {
