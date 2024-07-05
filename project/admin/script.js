@@ -1,6 +1,52 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./app/src/components/editor/editor-text/index.js":
+/*!********************************************************!*\
+  !*** ./app/src/components/editor/editor-text/index.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EditorText)
+/* harmony export */ });
+class EditorText {
+  constructor(element, virtualElement) {
+    this.element = element;
+    this.virtualElement = virtualElement;
+    this.element.addEventListener("click", () => this.onClick());
+    this.element.addEventListener("blur", () => this.onBlur());
+    this.element.addEventListener("keypress", e => this.onKeypress(e));
+    this.element.addEventListener("input", () => this.onTextEdit());
+    if (this.element.parentNode.nodeName === "A" || this.element.parentNode.nodeName === "BUTTON") {
+      this.element.addEventListener("contextmenu", e => this.onCtxMenu(e));
+    }
+  }
+  onCtxMenu(e) {
+    e.preventDefault();
+    this.onClick();
+  }
+  onKeypress(e) {
+    if (e.keyCode === 13) {
+      this.element.blur();
+    }
+  }
+  onClick() {
+    this.element.contentEditable = "true";
+    this.element.focus();
+  }
+  onBlur() {
+    this.element.removeAttribute('contenteditable');
+  }
+  onTextEdit() {
+    this.virtualElement.innerHTML = this.element.innerHTML;
+  }
+}
+
+/***/ }),
+
 /***/ "./app/src/components/editor/editor.js":
 /*!*********************************************!*\
   !*** ./app/src/components/editor/editor.js ***!
@@ -14,10 +60,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _helpers_iframeLoader_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helpers/iframeLoader.js */ "./app/src/helpers/iframeLoader.js");
 /* harmony import */ var _helpers_iframeLoader_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_helpers_iframeLoader_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/dom-helper */ "./app/src/helpers/dom-helper.js");
+/* harmony import */ var _editor_editor_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../editor/editor-text */ "./app/src/components/editor/editor-text/index.js");
+
 
 
 
@@ -42,18 +90,18 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
   }
   open(page) {
     this.currentPage = page;
-    axios__WEBPACK_IMPORTED_MODULE_3__["default"].get(`../${page}?rnd=${Math.random()}`).then(res => _helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].parseStrToDOM(res.data)).then(_helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].wrapTextNodes).then(dom => {
+    axios__WEBPACK_IMPORTED_MODULE_4__["default"].get(`../${page}?rnd=${Math.random()}`).then(res => _helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].parseStrToDOM(res.data)).then(_helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].wrapTextNodes).then(dom => {
       this.virtualDom = dom;
       return dom;
-    }).then(_helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].serializeDOMToString).then(html => axios__WEBPACK_IMPORTED_MODULE_3__["default"].post("./api/saveTempPage.php", {
+    }).then(_helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].serializeDOMToString).then(html => axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("./api/saveTempPage.php", {
       html
-    })).then(() => this.iframe.load("../temp.html")).then(() => this.enableEditing());
+    })).then(() => this.iframe.load("../temp.html")).then(() => this.enableEditing()).then(() => this.intjectStyles());
   }
   save() {
     const newDom = this.virtualDom.cloneNode(this.virtualDom);
     _helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].unwrapTextNodes(newDom);
     const html = _helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].serializeDOMToString(newDom);
-    axios__WEBPACK_IMPORTED_MODULE_3__["default"].post("./api/savePage.php", {
+    axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("./api/savePage.php", {
       pageName: this.currentPage,
       html
     });
@@ -66,22 +114,36 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
       });
     });
   }
+  intjectStyles() {
+    const style = this.iframe.contentDocument.createElement("style");
+    style.innerHTML = `
+         text-editor:hover {
+            outline: 3px solid orange;
+            outline-offset: 8px;
+        }
+         text-editor:focus {
+            outline: 3px solid orange;
+            outline-offset: 8px;
+        }   
+        `;
+    this.iframe.contentDocument.head.appendChild(style);
+  }
   onTextEdit(element) {
     const id = element.getAttribute("nodeid");
     this.virtualDom.body.querySelector(`[nodeid="${id}"]`).innerHTML = element.innerHTML;
   }
   loadPageList() {
-    axios__WEBPACK_IMPORTED_MODULE_3__["default"].get("./api").then(res => this.setState({
+    axios__WEBPACK_IMPORTED_MODULE_4__["default"].get("./api").then(res => this.setState({
       pageList: res.data
     }));
   }
   createNewPage() {
-    axios__WEBPACK_IMPORTED_MODULE_3__["default"].post("./api/createNewPage.php", {
+    axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("./api/createNewPage.php", {
       "name": this.state.newPageName
     }).then(this.loadPageList()).catch(() => alert("Страница уже существует!"));
   }
   deletePage(page) {
-    axios__WEBPACK_IMPORTED_MODULE_3__["default"].post("./api/deletePage.php", {
+    axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("./api/deletePage.php", {
       "name": page
     }).then(this.loadPageList()).catch(() => alert("Страницы не существует!"));
   }

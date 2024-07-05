@@ -2,6 +2,7 @@ import "../../helpers/iframeLoader.js";
 import axios from 'axios';
 import React, {Component} from 'react';
 import DOMHelper from '../../helpers/dom-helper';
+import EditorText from '../editor/editor-text'
 
 export default class Editor extends Component {
     constructor() {
@@ -39,6 +40,7 @@ export default class Editor extends Component {
             .then(html => axios.post("./api/saveTempPage.php", {html}))
             .then(() => this.iframe.load("../temp.html"))
             .then(() => this.enableEditing())
+            .then(()=> this.intjectStyles())
     }
 
     save() {
@@ -56,6 +58,21 @@ export default class Editor extends Component {
                 this.onTextEdit(element);
             })
         });
+    }
+
+     intjectStyles(){
+        const style = this.iframe.contentDocument.createElement("style");
+        style.innerHTML = `
+         text-editor:hover {
+            outline: 3px solid orange;
+            outline-offset: 8px;
+        }
+         text-editor:focus {
+            outline: 3px solid orange;
+            outline-offset: 8px;
+        }   
+        `;
+        this.iframe.contentDocument.head.appendChild(style);
     }
 
     onTextEdit(element) {
