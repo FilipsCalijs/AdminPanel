@@ -53,10 +53,10 @@ export default class Editor extends Component {
 
     enableEditing() {
         this.iframe.contentDocument.body.querySelectorAll("text-editor").forEach(element => {
-            element.contentEditable = "true";
-            element.addEventListener("input", () => {
-                this.onTextEdit(element);
-            })
+            const id = element.getAttribute("nodeid");
+            const virtualElement = this.virtualDom.body.querySelector(`[nodeid="${id}"]`);
+
+            new EditorText(element, virtualElement);
         });
     }
 
@@ -68,7 +68,7 @@ export default class Editor extends Component {
             outline-offset: 8px;
         }
          text-editor:focus {
-            outline: 3px solid orange;
+            outline: 3px solid red;
             outline-offset: 8px;
         }   
         `;

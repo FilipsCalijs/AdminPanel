@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./app/src/components/editor/editor-text/index.js":
-/*!********************************************************!*\
-  !*** ./app/src/components/editor/editor-text/index.js ***!
-  \********************************************************/
+/***/ "./app/src/components/editor/editor-text/editor-text.js":
+/*!**************************************************************!*\
+  !*** ./app/src/components/editor/editor-text/editor-text.js ***!
+  \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -44,6 +44,23 @@ class EditorText {
     this.virtualElement.innerHTML = this.element.innerHTML;
   }
 }
+
+/***/ }),
+
+/***/ "./app/src/components/editor/editor-text/index.js":
+/*!********************************************************!*\
+  !*** ./app/src/components/editor/editor-text/index.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _editor_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-text */ "./app/src/components/editor/editor-text/editor-text.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_editor_text__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -108,10 +125,9 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
   }
   enableEditing() {
     this.iframe.contentDocument.body.querySelectorAll("text-editor").forEach(element => {
-      element.contentEditable = "true";
-      element.addEventListener("input", () => {
-        this.onTextEdit(element);
-      });
+      const id = element.getAttribute("nodeid");
+      const virtualElement = this.virtualDom.body.querySelector(`[nodeid="${id}"]`);
+      new _editor_editor_text__WEBPACK_IMPORTED_MODULE_3__["default"](element, virtualElement);
     });
   }
   intjectStyles() {
@@ -122,7 +138,7 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
             outline-offset: 8px;
         }
          text-editor:focus {
-            outline: 3px solid orange;
+            outline: 3px solid red;
             outline-offset: 8px;
         }   
         `;
