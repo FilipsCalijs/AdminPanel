@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./app/src/components/editor/editor-text/editor-text.js":
-/*!**************************************************************!*\
-  !*** ./app/src/components/editor/editor-text/editor-text.js ***!
-  \**************************************************************/
+/***/ "./app/src/components/editor-text/editor-text.js":
+/*!*******************************************************!*\
+  !*** ./app/src/components/editor-text/editor-text.js ***!
+  \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47,10 +47,10 @@ class EditorText {
 
 /***/ }),
 
-/***/ "./app/src/components/editor/editor-text/index.js":
-/*!********************************************************!*\
-  !*** ./app/src/components/editor/editor-text/index.js ***!
-  \********************************************************/
+/***/ "./app/src/components/editor-text/index.js":
+/*!*************************************************!*\
+  !*** ./app/src/components/editor-text/index.js ***!
+  \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _editor_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-text */ "./app/src/components/editor/editor-text/editor-text.js");
+/* harmony import */ var _editor_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-text */ "./app/src/components/editor-text/editor-text.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_editor_text__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
@@ -81,7 +81,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/dom-helper */ "./app/src/helpers/dom-helper.js");
-/* harmony import */ var _editor_editor_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../editor/editor-text */ "./app/src/components/editor/editor-text/index.js");
+/* harmony import */ var _editor_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../editor-text */ "./app/src/components/editor-text/index.js");
 
 
 
@@ -112,7 +112,7 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
       return dom;
     }).then(_helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].serializeDOMToString).then(html => axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("./api/saveTempPage.php", {
       html
-    })).then(() => this.iframe.load("../temp.html")).then(() => this.enableEditing()).then(() => this.intjectStyles());
+    })).then(() => this.iframe.load("../temp.html")).then(() => this.enableEditing()).then(() => this.injectStyles());
   }
   save() {
     const newDom = this.virtualDom.cloneNode(this.virtualDom);
@@ -127,26 +127,22 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     this.iframe.contentDocument.body.querySelectorAll("text-editor").forEach(element => {
       const id = element.getAttribute("nodeid");
       const virtualElement = this.virtualDom.body.querySelector(`[nodeid="${id}"]`);
-      new _editor_editor_text__WEBPACK_IMPORTED_MODULE_3__["default"](element, virtualElement);
+      new _editor_text__WEBPACK_IMPORTED_MODULE_3__["default"](element, virtualElement);
     });
   }
-  intjectStyles() {
+  injectStyles() {
     const style = this.iframe.contentDocument.createElement("style");
     style.innerHTML = `
-         text-editor:hover {
-            outline: 3px solid orange;
-            outline-offset: 8px;
-        }
-         text-editor:focus {
-            outline: 3px solid red;
-            outline-offset: 8px;
-        }   
+            text-editor:hover {
+                outline: 3px solid orange;
+                outline-offset: 8px;
+            }
+            text-editor:focus {
+                outline: 3px solid red;
+                outline-offset: 8px;
+            }
         `;
     this.iframe.contentDocument.head.appendChild(style);
-  }
-  onTextEdit(element) {
-    const id = element.getAttribute("nodeid");
-    this.virtualDom.body.querySelector(`[nodeid="${id}"]`).innerHTML = element.innerHTML;
   }
   loadPageList() {
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].get("./api").then(res => this.setState({
@@ -164,32 +160,42 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     }).then(this.loadPageList()).catch(() => alert("Страницы не существует!"));
   }
   render() {
-    // const {pageList} = this.state;
-    // const pages = pageList.map((page, i) => {
-    //     return (
-    //         <h1 key={i}>{page}
-    //             <a 
-    //             href="#"
-    //             onClick={() => this.deletePage(page)}>(x)</a>
-    //         </h1>
-    //     )
-    // });
-
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
-      onClick: () => this.save()
-    }, "Click"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("iframe", {
+    const modal = false;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement((react__WEBPACK_IMPORTED_MODULE_1___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("iframe", {
       src: this.currentPage,
       frameBorder: "0"
-    }))
-
-    // <>
-    //     <input
-    //         onChange={(e) => {this.setState({newPageName: e.target.value})}} 
-    //         type="text"/>
-    //     <button onClick={this.createNewPage}>Создать страницу</button>
-    //     {pages}
-    // </>
-    ;
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
+      className: "panel"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
+      className: "uk-button uk-button-primary",
+      "uk-toggle": "target: #modal-save"
+    }, "\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
+      id: "modal-save",
+      "uk-modal": modal.toString()
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("div", {
+      className: "uk-modal-dialog uk-modal-body"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("h2", {
+      className: "uk-modal-title"
+    }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", null, "\u0412\u044B \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("p", {
+      className: "uk-text-right"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
+      className: "uk-button uk-button-default uk-modal-close",
+      type: "button"
+    }, "\u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default().createElement("button", {
+      className: "uk-button uk-button-primary uk-modal-close",
+      type: "button",
+      onClick: () => this.save(() => {
+        UIkit.notification({
+          message: 'Успешно сохранено',
+          status: 'success'
+        });
+      }, () => {
+        UIkit.notification({
+          message: 'Ошибка сохранения',
+          status: 'danger'
+        });
+      })
+    }, "\u041E\u043F\u0443\u0431\u043B\u0438\u043A\u043E\u0432\u0430\u0442\u044C")))));
   }
 }
 
