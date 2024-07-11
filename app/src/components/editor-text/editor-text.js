@@ -35,4 +35,3 @@ export default class EditorText {
         this.virtualElement.innerHTML = this.element.innerHTML;
     }
 }
-
