@@ -1,8 +1,8 @@
 const gulp = require("gulp");
 const webpack = require("webpack-stream");
-const sass = require('gulp-sass')(require('sass'));
+ const sass = require('gulp-sass')(require('sass'));
 
-const dist = "/Applications/MAMP/htdocs/react_admin/admin";
+const dist = "B:/promma/xampp/htdocs/react_admin/project/admin";
 
 gulp.task("copy-html", () => {
     return gulp.src("./app/src/index.html")
