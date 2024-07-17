@@ -154,9 +154,161 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./app/src/components/editor-meta/editor-meta.js ***!
   \*******************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: B:\\promma\\xampp\\htdocs\\react_admin\\app\\src\\components\\editor-meta\\editor-meta.js: Unexpected token, expected \",\" (12:13)\n\n\u001b[0m \u001b[90m 10 |\u001b[39m                 keywords\u001b[33m:\u001b[39m \u001b[32m''\u001b[39m\u001b[33m,\u001b[39m\n \u001b[90m 11 |\u001b[39m                 description\u001b[33m:\u001b[39m \u001b[32m''\u001b[39m\u001b[33m,\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 12 |\u001b[39m             }\u001b[36mimport\u001b[39m \u001b[33mReact\u001b[39m\u001b[33m,\u001b[39m {\u001b[33mComponent\u001b[39m} \u001b[36mfrom\u001b[39m \u001b[32m'react'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 13 |\u001b[39m\n \u001b[90m 14 |\u001b[39m             \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[36mclass\u001b[39m \u001b[33mEditorMeta\u001b[39m \u001b[36mextends\u001b[39m \u001b[33mComponent\u001b[39m {\n \u001b[90m 15 |\u001b[39m                 constructor(props) {\u001b[0m\n    at constructor (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:351:19)\n    at JSXParserMixin.raise (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:3233:19)\n    at JSXParserMixin.unexpected (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:3253:16)\n    at JSXParserMixin.expect (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:3557:28)\n    at JSXParserMixin.parseObjectLike (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:11324:14)\n    at JSXParserMixin.parseExprAtom (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10853:23)\n    at JSXParserMixin.parseExprAtom (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:6781:20)\n    at JSXParserMixin.parseExprSubscripts (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10568:23)\n    at JSXParserMixin.parseUpdate (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10551:21)\n    at JSXParserMixin.parseMaybeUnary (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10529:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10383:61)\n    at JSXParserMixin.parseExprOps (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10388:23)\n    at JSXParserMixin.parseMaybeConditional (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10365:23)\n    at JSXParserMixin.parseMaybeAssign (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10326:21)\n    at JSXParserMixin.parseMaybeAssign (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10352:25)\n    at JSXParserMixin.parseExpressionBase (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10280:23)\n    at B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10276:39\n    at JSXParserMixin.allowInAnd (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:11915:16)\n    at JSXParserMixin.parseExpression (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:10276:17)\n    at JSXParserMixin.parseStatementContent (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12356:23)\n    at JSXParserMixin.parseStatementLike (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12223:17)\n    at JSXParserMixin.parseStatementListItem (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12203:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12780:61)\n    at JSXParserMixin.parseBlockBody (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12773:10)\n    at JSXParserMixin.parseBlock (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12761:10)\n    at JSXParserMixin.parseFunctionBody (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:11600:24)\n    at JSXParserMixin.parseFunctionBodyAndFinish (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:11586:10)\n    at JSXParserMixin.parseMethod (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:11544:31)\n    at JSXParserMixin.pushClassMethod (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:13184:30)\n    at JSXParserMixin.parseClassMemberWithIsStatic (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:13072:12)\n    at JSXParserMixin.parseClassMember (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:13021:10)\n    at B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12975:14\n    at JSXParserMixin.withSmartMixTopicForbiddingContext (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:11897:14)\n    at JSXParserMixin.parseClassBody (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12957:10)\n    at JSXParserMixin.parseClass (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12932:22)\n    at JSXParserMixin.parseExportDefaultExpression (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:13364:19)\n    at JSXParserMixin.parseExport (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:13283:25)\n    at JSXParserMixin.parseStatementContent (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12336:27)\n    at JSXParserMixin.parseStatementLike (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12223:17)\n    at JSXParserMixin.parseModuleItem (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12200:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12780:36)\n    at JSXParserMixin.parseBlockBody (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12773:10)\n    at JSXParserMixin.parseProgram (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12100:10)\n    at JSXParserMixin.parseTopLevel (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:12090:25)\n    at JSXParserMixin.parse (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:13904:10)\n    at parse (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\parser\\lib\\index.js:13946:38)\n    at parser (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\core\\lib\\parser\\index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (B:\\promma\\xampp\\htdocs\\react_admin\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:64:37)\n    at normalizeFile.next (<anonymous>)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EditorMeta)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+class EditorMeta extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      meta: {
+        title: '',
+        keywords: '',
+        description: ''
+      }
+    };
+  }
+  componentDidMount() {
+    this.getMeta(this.props.virtualDom);
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.virtualDom !== prevProps.virtualDom) {
+      this.getMeta(this.props.virtualDom);
+    }
+  }
+  getMeta(virtualDom) {
+    this.title = virtualDom.head.querySelector('title') || virtualDom.head.appendChild(virtualDom.createElement('title'));
+    this.keywords = virtualDom.head.querySelector('meta[name="keywords"]');
+    if (!this.keywords) {
+      this.keywords = virtualDom.head.appendChild(virtualDom.createElement('meta'));
+      this.keywords.setAttribute("name", "keywords");
+      this.keywords.setAttribute("content", "");
+    }
+    this.description = virtualDom.head.querySelector('meta[name="description"]');
+    if (!this.description) {
+      this.description = virtualDom.head.appendChild(virtualDom.createElement('meta'));
+      this.description.setAttribute("name", "description");
+      this.description.setAttribute("content", "");
+    }
+    this.setState({
+      meta: {
+        title: this.title.innerHTML,
+        keywords: this.keywords.getAttribute("content"),
+        description: this.description.getAttribute("content")
+      }
+    });
+  }
+  applyMeta() {
+    this.title.innerHTML = this.state.meta.title;
+    this.keywords.setAttribute("content", this.state.meta.keywords);
+    this.description.setAttribute("content", this.state.meta.description);
+  }
+  onValueChange(e) {
+    if (e.target.getAttribute("data-title")) {
+      e.persist();
+      this.setState(({
+        meta
+      }) => {
+        const newMeta = {
+          ...meta,
+          title: e.target.value
+        };
+        return {
+          meta: newMeta
+        };
+      });
+    } else if (e.target.getAttribute("data-key")) {
+      e.persist();
+      this.setState(({
+        meta
+      }) => {
+        const newMeta = {
+          ...meta,
+          keywords: e.target.value
+        };
+        return {
+          meta: newMeta
+        };
+      });
+    } else {
+      e.persist();
+      this.setState(({
+        meta
+      }) => {
+        const newMeta = {
+          ...meta,
+          description: e.target.value
+        };
+        return {
+          meta: newMeta
+        };
+      });
+    }
+  }
+  render() {
+    const {
+      modal,
+      target
+    } = this.props;
+    const {
+      title,
+      keywords,
+      description
+    } = this.state.meta;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      id: target,
+      "uk-modal": modal.toString()
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "uk-modal-dialog uk-modal-body"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
+      className: "uk-modal-title"
+    }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 Meta-\u0442\u044D\u0433\u043E\u0432"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "uk-margin"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      "data-title": true,
+      className: "uk-input",
+      type: "text",
+      placeholder: "Title",
+      value: title,
+      onChange: e => this.onValueChange(e)
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "uk-margin"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
+      "data-key": true,
+      className: "uk-textarea",
+      rows: "5",
+      placeholder: "Keywords",
+      value: keywords,
+      onChange: e => this.onValueChange(e)
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "uk-margin"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
+      "data-descr": true,
+      className: "uk-textarea",
+      rows: "5",
+      placeholder: "Description",
+      value: description,
+      onChange: e => this.onValueChange(e)
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+      className: "uk-text-right"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "uk-button uk-button-default uk-margin-small-right uk-modal-close",
+      type: "button"
+    }, "\u041E\u0442\u043C\u0435\u043D\u0438\u0442\u044C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "uk-button uk-button-primary uk-modal-close",
+      type: "button",
+      onClick: () => {
+        this.applyMeta();
+      }
+    }, "\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u0442\u044C"))));
+  }
+}
 
 /***/ }),
 
@@ -172,9 +324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _editor_meta__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-meta */ "./app/src/components/editor-meta/editor-meta.js");
-/* harmony import */ var _editor_meta__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_editor_meta__WEBPACK_IMPORTED_MODULE_0__);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_editor_meta__WEBPACK_IMPORTED_MODULE_0___default()));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_editor_meta__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -417,11 +568,11 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
       target: 'modal-backup',
       data: backupsList,
       redirect: this.restoreBackup
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_editor_meta__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    }), this.virtualDom ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_editor_meta__WEBPACK_IMPORTED_MODULE_9__["default"], {
       modal: modal,
       target: 'modal-meta',
       virtualDom: this.virtualDom
-    }));
+    }) : false);
   }
 }
 
