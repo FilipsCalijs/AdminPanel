@@ -6,6 +6,10 @@ This project is a web-based admin panel built with React. It allows administrato
 
 The project has the following structure:
 
+### bug and fix:
+
+1. in const dist you need to chose YOUR PATH; 
+2. a bug has appeared that even gulp/npm won’t let me run, I’ve been fiddling with it for half an hour and nothing is working, I’m already tired after work today, and I still have to continue the activation strike, so I’ll just release this message and then delete it when I fix the bug or just switch to another device
 
 ### Components
 
