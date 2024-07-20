@@ -1,3 +1,6 @@
+## ABORT THIS MODULE
+I suspended work on the project from lesson 19 - Creating a meta tag editor, since an error appeared on mac devices that I have not been able to fix for 3 days and every time it is new, I will now think and fix it, but it appeared out of nowhere and now I can't clean up
+
 ## React Admin Panel Description
 
 This project is a web-based admin panel built with React. It allows administrators to manage web pages, create backups, and restore pages from backups. The project is structured to separate different concerns into their respective components and helper files, making it modular and maintainable.
