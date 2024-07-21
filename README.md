@@ -1,3 +1,6 @@
+## ABORT THIS MODULE
+I suspended work on the project from lesson 19 - Creating a meta tag editor, since an error appeared on mac devices that I have not been able to fix for 3 days and every time it is new, I will now think and fix it, but it appeared out of nowhere and now I can't clean up
+
 ## React Admin Panel Description
 
 This project is a web-based admin panel built with React. It allows administrators to manage web pages, create backups, and restore pages from backups. The project is structured to separate different concerns into their respective components and helper files, making it modular and maintainable.
@@ -6,6 +9,10 @@ This project is a web-based admin panel built with React. It allows administrato
 
 The project has the following structure:
 
+### bug and fix:
+
+1. in const dist you need to chose YOUR PATH; 
+2. a bug has appeared that even gulp/npm won’t let me run, I’ve been fiddling with it for half an hour and nothing is working, I’m already tired after work today, and I still have to continue the activation strike, so I’ll just release this message and then delete it when I fix the bug or just switch to another device
 
 ### Components
 
