@@ -161,11 +161,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ EditorImages)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+
 class EditorImages {
-  constructor(element, virtualElement) {
+  constructor(element, virtualElement, ...[isLoading, isLoaded, showNotifications]) {
     this.element = element;
     this.virtualElement = virtualElement;
-    console.log(element, virtualElement);
+    this.element.addEventListener('click', () => this.onClick());
+    this.imgUploader = document.querySelector("#img-upload");
+    this.isLoading = isLoading;
+    this.isLoaded = isLoaded;
+    this.showNotifications = showNotifications;
+  }
+  onClick() {
+    this.imgUploader.click();
+    this.imgUploader.addEventListener('change', () => {
+      if (this.imgUploader.files && this.imgUploader.files[0]) {
+        let formData = new FormData();
+        formData.append("image", this.imgUploader.files[0]);
+        this.isLoading();
+        axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('./api/uploadImage.php', formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }).then(res => {
+          this.virtualElement.src = this.element.src = `./img/${res.data.src}`;
+        }).catch(() => this.showNotifications("Ошибка сохранения", "danger")).finally(() => {
+          this.imgUploader.value = "";
+          this.isLoaded();
+        });
+      }
+    });
   }
 }
 
@@ -541,6 +567,10 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
                 outline: 3px solid red;
                 outline-offset: 8px;
             }
+            [editableimgid]:hover {
+                outline: 3px solid orange;
+                outline-offset: 8px;
+            }
         `;
     this.iframe.contentDocument.head.appendChild(style);
   }
@@ -600,6 +630,13 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("iframe", {
       src: "",
       frameBorder: "0"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+      id: "img-upload",
+      type: "file",
+      accept: "image/*",
+      style: {
+        display: 'none'
+      }
     }), spinner, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_panel__WEBPACK_IMPORTED_MODULE_8__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_confirm_modal__WEBPACK_IMPORTED_MODULE_6__["default"], {
       modal: modal,
       target: 'modal-save',

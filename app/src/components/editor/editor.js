@@ -109,6 +109,10 @@ export default class Editor extends Component {
                 outline: 3px solid red;
                 outline-offset: 8px;
             }
+            [editableimgid]:hover {
+                outline: 3px solid orange;
+                outline-offset: 8px;
+            }
         `;
         this.iframe.contentDocument.head.appendChild(style);
     }
@@ -167,7 +171,8 @@ export default class Editor extends Component {
         return (
             <>
                 <iframe src="" frameBorder="0"></iframe>
-                
+                <input id="img-upload" type="file" accept="image/*" style={{display: 'none'}}></input>
+
                 {spinner}
 
                 <Panel/>
