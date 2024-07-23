@@ -172,6 +172,9 @@ class EditorImages {
     this.isLoading = isLoading;
     this.isLoaded = isLoaded;
     this.showNotifications = showNotifications;
+    console.log('isLoading:', this.isLoading);
+    console.log('isLoaded:', this.isLoaded);
+    console.log('showNotifications:', this.showNotifications);
   }
   onClick() {
     this.imgUploader.click();
@@ -179,7 +182,11 @@ class EditorImages {
       if (this.imgUploader.files && this.imgUploader.files[0]) {
         let formData = new FormData();
         formData.append("image", this.imgUploader.files[0]);
-        this.isLoading();
+        if (typeof this.isLoading === 'function') {
+          this.isLoading();
+        } else {
+          console.error('isLoading is not a function');
+        }
         axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('./api/uploadImage.php', formData, {
           headers: {
             "Content-Type": "multipart/form-data"
@@ -188,7 +195,11 @@ class EditorImages {
           this.virtualElement.src = this.element.src = `./img/${res.data.src}`;
         }).catch(() => this.showNotifications("Ошибка сохранения", "danger")).finally(() => {
           this.imgUploader.value = "";
-          this.isLoaded();
+          if (typeof this.isLoaded === 'function') {
+            this.isLoaded();
+          } else {
+            console.error('isLoaded is not a function');
+          }
         });
       }
     });
