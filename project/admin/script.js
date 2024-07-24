@@ -172,9 +172,6 @@ class EditorImages {
     this.isLoading = isLoading;
     this.isLoaded = isLoaded;
     this.showNotifications = showNotifications;
-    console.log('isLoading:', this.isLoading);
-    console.log('isLoaded:', this.isLoaded);
-    console.log('showNotifications:', this.showNotifications);
   }
   onClick() {
     this.imgUploader.click();
@@ -182,11 +179,7 @@ class EditorImages {
       if (this.imgUploader.files && this.imgUploader.files[0]) {
         let formData = new FormData();
         formData.append("image", this.imgUploader.files[0]);
-        if (typeof this.isLoading === 'function') {
-          this.isLoading();
-        } else {
-          console.error('isLoading is not a function');
-        }
+        this.isLoading();
         axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('./api/uploadImage.php', formData, {
           headers: {
             "Content-Type": "multipart/form-data"
@@ -195,11 +188,7 @@ class EditorImages {
           this.virtualElement.src = this.element.src = `./img/${res.data.src}`;
         }).catch(() => this.showNotifications("Ошибка сохранения", "danger")).finally(() => {
           this.imgUploader.value = "";
-          if (typeof this.isLoaded === 'function') {
-            this.isLoaded();
-          } else {
-            console.error('isLoaded is not a function');
-          }
+          this.isLoaded();
         });
       }
     });
@@ -543,7 +532,7 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     })).then(() => this.iframe.load("../yfuy1g221ub_hhg44.html")).then(() => axios__WEBPACK_IMPORTED_MODULE_11__["default"].post("./api/deleteTempPage.php")).then(() => this.enableEditing()).then(() => this.injectStyles()).then(cb);
     this.loadBackupsList();
   }
-  async save(onSuccess, onError) {
+  async save() {
     this.isLoading();
     const newDom = this.virtualDom.cloneNode(this.virtualDom);
     _helpers_dom_helper__WEBPACK_IMPORTED_MODULE_2__["default"].unwrapTextNodes(newDom);
@@ -552,7 +541,7 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     await axios__WEBPACK_IMPORTED_MODULE_11__["default"].post("./api/savePage.php", {
       pageName: this.currentPage,
       html
-    }).then(onSuccess).catch(onError).finally(this.isLoaded);
+    }).then(() => this.showNotifications('Успешно сохранено', 'success')).catch(() => this.showNotifications('Ошибка сохранения', 'danger')).finally(this.isLoaded);
     this.loadBackupsList();
   }
   enableEditing() {
@@ -563,8 +552,8 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     });
     this.iframe.contentDocument.body.querySelectorAll("[editableimgid]").forEach(element => {
       const id = element.getAttribute("editableimgid");
-      const virtualElement = this.virtualDom.body.querySelector(`[nodeid="${id}"]`);
-      new _editor_images__WEBPACK_IMPORTED_MODULE_10__["default"](element, virtualElement);
+      const virtualElement = this.virtualDom.body.querySelector(`[editableimgid="${id}"]`);
+      new _editor_images__WEBPACK_IMPORTED_MODULE_10__["default"](element, virtualElement, this.isLoading, this.isLoaded, this.showNotifications);
     });
   }
   injectStyles() {
@@ -584,6 +573,12 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
             }
         `;
     this.iframe.contentDocument.head.appendChild(style);
+  }
+  showNotifications(message, status) {
+    uikit__WEBPACK_IMPORTED_MODULE_4___default().notification({
+      message,
+      status
+    });
   }
   loadPageList() {
     axios__WEBPACK_IMPORTED_MODULE_11__["default"].get("./api/pageList.php").then(res => this.setState({
@@ -634,7 +629,6 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     } = this.state;
     const modal = true;
     let spinner;
-    console.log(backupsList);
     loading ? spinner = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_spinner__WEBPACK_IMPORTED_MODULE_5__["default"], {
       active: true
     }) : spinner = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_spinner__WEBPACK_IMPORTED_MODULE_5__["default"], null);

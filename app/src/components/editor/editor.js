@@ -8,9 +8,8 @@ import Spinner from '../spinner';
 import ConfirmModal from '../confirm-modal';
 import ChooseModal from '../choose-modal';
 import Panel from '../panel';
-import EditorMeta from "../editor-meta";
+import EditorMeta from '../editor-meta';
 import EditorImages from '../editor-images';
-
 
 export default class Editor extends Component {
     constructor() {
@@ -67,7 +66,7 @@ export default class Editor extends Component {
         this.loadBackupsList();
     }
 
-    async save(onSuccess, onError) {
+    async save() {
         this.isLoading();
         const newDom = this.virtualDom.cloneNode(this.virtualDom);
         DOMHelper.unwrapTextNodes(newDom);
@@ -75,8 +74,8 @@ export default class Editor extends Component {
         const html = DOMHelper.serializeDOMToString(newDom);
         await axios
             .post("./api/savePage.php", {pageName: this.currentPage, html})
-            .then(onSuccess)
-            .catch(onError)
+            .then(() => this.showNotifications('Успешно сохранено', 'success'))
+            .catch(() => this.showNotifications('Ошибка сохранения', 'danger'))
             .finally(this.isLoaded);
 
         this.loadBackupsList();
@@ -92,9 +91,9 @@ export default class Editor extends Component {
 
         this.iframe.contentDocument.body.querySelectorAll("[editableimgid]").forEach(element => {
             const id = element.getAttribute("editableimgid");
-            const virtualElement = this.virtualDom.body.querySelector(`[nodeid="${id}"]`);
+            const virtualElement = this.virtualDom.body.querySelector(`[editableimgid="${id}"]`);
 
-            new EditorImages(element, virtualElement);
+            new EditorImages(element, virtualElement, this.isLoading, this.isLoaded, this.showNotifications);
         });
     }
 
@@ -115,6 +114,10 @@ export default class Editor extends Component {
             }
         `;
         this.iframe.contentDocument.head.appendChild(style);
+    }
+
+    showNotifications(message, status) {
+        UIkit.notification({message, status});
     }
 
     loadPageList() {
@@ -163,8 +166,6 @@ export default class Editor extends Component {
         const {loading, pageList, backupsList} = this.state;
         const modal = true;
         let spinner;
-
-        console.log(backupsList);
         
         loading ? spinner = <Spinner active/> : spinner = <Spinner />
 
@@ -172,7 +173,7 @@ export default class Editor extends Component {
             <>
                 <iframe src="" frameBorder="0"></iframe>
                 <input id="img-upload" type="file" accept="image/*" style={{display: 'none'}}></input>
-
+                
                 {spinner}
 
                 <Panel/>
@@ -180,7 +181,7 @@ export default class Editor extends Component {
                 <ConfirmModal modal={modal}  target={'modal-save'} method={this.save}/>
                 <ChooseModal modal={modal}  target={'modal-open'} data={pageList} redirect={this.init}/>
                 <ChooseModal modal={modal}  target={'modal-backup'} data={backupsList} redirect={this.restoreBackup}/>
-                {this.virtualDom ?  <EditorMeta modal={modal}  target={'modal-meta'} virtualDom={this.virtualDom}/> : false}
+               {this.virtualDom ?  <EditorMeta modal={modal}  target={'modal-meta'} virtualDom={this.virtualDom}/> : false}
             </>
         )
     }

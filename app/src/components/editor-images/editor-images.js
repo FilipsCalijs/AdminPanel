@@ -10,10 +10,6 @@ export default class EditorImages {
         this.isLoading = isLoading;
         this.isLoaded = isLoaded;
         this.showNotifications = showNotifications;
-        
-        console.log('isLoading:', this.isLoading);
-        console.log('isLoaded:', this.isLoaded);
-        console.log('showNotifications:', this.showNotifications);
     }
 
     onClick() {
@@ -22,13 +18,7 @@ export default class EditorImages {
             if (this.imgUploader.files && this.imgUploader.files[0]) {
                 let formData = new FormData();
                 formData.append("image", this.imgUploader.files[0]);
-                
-                if (typeof this.isLoading === 'function') {
-                    this.isLoading();
-                } else {
-                    console.error('isLoading is not a function');
-                }
-                
+                this.isLoading();
                 axios
                     .post('./api/uploadImage.php', formData, {
                         headers: {
@@ -41,12 +31,7 @@ export default class EditorImages {
                     .catch(() => this.showNotifications("Ошибка сохранения", "danger"))
                     .finally(() => {
                         this.imgUploader.value = "";
-                        
-                        if (typeof this.isLoaded === 'function') {
-                            this.isLoaded();
-                        } else {
-                            console.error('isLoaded is not a function');
-                        }
+                        this.isLoaded();
                     })
             }
         });
