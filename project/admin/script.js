@@ -482,7 +482,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _editor_meta__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../editor-meta */ "./app/src/components/editor-meta/index.js");
 /* harmony import */ var _editor_images__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../editor-images */ "./app/src/components/editor-images/index.js");
 /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../login */ "./app/src/components/login/index.js");
-/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_login__WEBPACK_IMPORTED_MODULE_11__);
 
 
 
@@ -504,7 +503,8 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
       pageList: [],
       backupsList: [],
       newPageName: "",
-      loading: true
+      loading: true,
+      auth: false
     };
     this.isLoading = this.isLoading.bind(this);
     this.isLoaded = this.isLoaded.bind(this);
@@ -513,7 +513,15 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     this.restoreBackup = this.restoreBackup.bind(this);
   }
   componentDidMount() {
+    this.checkAuth();
     this.init(null, this.currentPage);
+  }
+  checkAuth() {
+    axios__WEBPACK_IMPORTED_MODULE_12__["default"].get("./api/checkAuth.php").then(res => {
+      this.setState({
+        auth: res.data.auth
+      });
+    });
   }
   init(e, page) {
     if (e) {
@@ -628,14 +636,18 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     const {
       loading,
       pageList,
-      backupsList
+      backupsList,
+      auth
     } = this.state;
     const modal = true;
     let spinner;
     loading ? spinner = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_spinner__WEBPACK_IMPORTED_MODULE_5__["default"], {
       active: true
     }) : spinner = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_spinner__WEBPACK_IMPORTED_MODULE_5__["default"], null);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement((_login__WEBPACK_IMPORTED_MODULE_11___default()), null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("iframe", {
+    if (!auth) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_login__WEBPACK_IMPORTED_MODULE_11__["default"], null);
+    }
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("iframe", {
       src: "",
       frameBorder: "0"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
@@ -690,9 +702,54 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./app/src/components/login/index.js ***!
   \*******************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login */ "./app/src/components/login/login.js");
 
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_login__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./app/src/components/login/login.js":
+/*!*******************************************!*\
+  !*** ./app/src/components/login/login.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Login)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+class Login extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
+  render() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "login-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "login"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
+      className: "uk-modal-title uk-text-center"
+    }, "authorization"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "uk-modal-top uk-text-lead"
+    }, "Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      type: "password",
+      name: "",
+      id: "",
+      className: "uk-input uk-marin-top",
+      placeholder: "Passord"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "uk-button uk-button-primary uk-margin-top",
+      type: "button"
+    }, "Enter")));
+  }
+}
 
 /***/ }),
 

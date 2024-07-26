@@ -20,7 +20,8 @@ export default class Editor extends Component {
             pageList: [],
             backupsList: [],
             newPageName: "",
-            loading: true
+            loading: true,
+            auth: false,
         }
         this.isLoading = this.isLoading.bind(this);
         this.isLoaded = this.isLoaded.bind(this);
@@ -30,7 +31,18 @@ export default class Editor extends Component {
     }
 
     componentDidMount() {
+        this.checkAuth();
         this.init(null, this.currentPage);
+    }
+
+    checkAuth(){
+        axios  
+            .get("./api/checkAuth.php")
+            .then(res => {
+                this.setState({
+                    auth: res.data.auth
+                })
+            })
     }
 
     init(e, page) {
@@ -164,15 +176,19 @@ export default class Editor extends Component {
     }
 
     render() {
-        const {loading, pageList, backupsList} = this.state;
+        const {loading, pageList, backupsList, auth} = this.state;
         const modal = true;
         let spinner;
         
         loading ? spinner = <Spinner active/> : spinner = <Spinner />
 
+        if (!auth){
+            return <Login/>
+        }
+
         return (
             <>
-                <Login/>
+
                 <iframe src="" frameBorder="0"></iframe>
                 <input id="img-upload" type="file" accept="image/*" style={{display: 'none'}}></input>
                 
