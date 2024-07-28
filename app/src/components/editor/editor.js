@@ -27,6 +27,7 @@ export default class Editor extends Component {
         this.isLoaded = this.isLoaded.bind(this);
         this.save = this.save.bind(this);
         this.init = this.init.bind(this);
+        this.login = this.login.bind(this);
         this.restoreBackup = this.restoreBackup.bind(this);
     }
 
@@ -45,15 +46,27 @@ export default class Editor extends Component {
             })
     }
 
+    login(pass){
+        if (pass.length > 5){
+            axios
+            .post('./api/login.php', {"password": pass})
+            .then()
+        }
+    }
+
     init(e, page) {
         if (e) {
             e.preventDefault();
         }
-        this.isLoading();
-        this.iframe = document.querySelector('iframe');
-        this.open(page, this.isLoaded);
-        this.loadPageList();
-        this.loadBackupsList();
+
+        if (this.state.auth){
+            this.isLoading();
+            this.iframe = document.querySelector('iframe');
+            this.open(page, this.isLoaded);
+            this.loadPageList();
+            this.loadBackupsList();
+        }
+
     }
 
     open(page, cb) {
@@ -183,7 +196,7 @@ export default class Editor extends Component {
         loading ? spinner = <Spinner active/> : spinner = <Spinner />
 
         if (!auth){
-            return <Login/>
+            return <Login login={this.login}/>
         }
 
         return (
