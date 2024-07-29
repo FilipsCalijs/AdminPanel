@@ -50,7 +50,12 @@ export default class Editor extends Component {
         if (pass.length > 5){
             axios
             .post('./api/login.php', {"password": pass})
-            .then()
+            .then(res => {
+                console.log(res.data)
+            }
+
+
+            )
         }
     }
 
