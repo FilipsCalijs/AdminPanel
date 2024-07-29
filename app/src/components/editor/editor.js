@@ -36,6 +36,12 @@ export default class Editor extends Component {
         this.init(null, this.currentPage);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.auth !== prevState.auth) {
+            this.init(null, this.currentPage);
+        }
+    }
+
     checkAuth(){
         axios  
             .get("./api/checkAuth.php")
@@ -51,10 +57,12 @@ export default class Editor extends Component {
             axios
             .post('./api/login.php', {"password": pass})
             .then(res => {
-                console.log(res.data)
+                this.setState({
+                    auth: res.data.auth
+                })
             }
 
-
+ 
             )
         }
     }

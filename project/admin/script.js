@@ -517,6 +517,11 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
     this.checkAuth();
     this.init(null, this.currentPage);
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.auth !== prevState.auth) {
+      this.init(null, this.currentPage);
+    }
+  }
   checkAuth() {
     axios__WEBPACK_IMPORTED_MODULE_12__["default"].get("./api/checkAuth.php").then(res => {
       this.setState({
@@ -529,7 +534,9 @@ class Editor extends react__WEBPACK_IMPORTED_MODULE_1__.Component {
       axios__WEBPACK_IMPORTED_MODULE_12__["default"].post('./api/login.php', {
         "password": pass
       }).then(res => {
-        console.log(res.data);
+        this.setState({
+          auth: res.data.auth
+        });
       });
     }
   }
