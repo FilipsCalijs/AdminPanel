@@ -22,18 +22,20 @@ export default class Editor extends Component {
             newPageName: "",
             loading: true,
             auth: false,
+            loginError: false,
+            loginLengthError: false
         }
         this.isLoading = this.isLoading.bind(this);
         this.isLoaded = this.isLoaded.bind(this);
         this.save = this.save.bind(this);
         this.init = this.init.bind(this);
         this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
         this.restoreBackup = this.restoreBackup.bind(this);
     }
 
     componentDidMount() {
         this.checkAuth();
-        this.init(null, this.currentPage);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -42,8 +44,8 @@ export default class Editor extends Component {
         }
     }
 
-    checkAuth(){
-        axios  
+    checkAuth() {
+        axios
             .get("./api/checkAuth.php")
             .then(res => {
                 this.setState({
@@ -52,19 +54,31 @@ export default class Editor extends Component {
             })
     }
 
-    login(pass){
-        if (pass.length > 5){
+    login(pass) {
+        if (pass.length > 5) {
             axios
-            .post('./api/login.php', {"password": pass})
-            .then(res => {
-                this.setState({
-                    auth: res.data.auth
+                .post('./api/login.php', {"password": pass})
+                .then(res => {
+                    this.setState({
+                        auth: res.data.auth,
+                        loginError: !res.data.auth,
+                        loginLengthError: false
+                    })
                 })
-            }
-
- 
-            )
+        } else {
+            this.setState({
+                loginError: false,
+                loginLengthError: true
+            })
         }
+    }
+
+    logout() {
+        axios
+            .get("./api/logout.php")
+            .then(() => {
+                window.location.replace("/");
+            })
     }
 
     init(e, page) {
@@ -72,14 +86,13 @@ export default class Editor extends Component {
             e.preventDefault();
         }
 
-        if (this.state.auth){
+        if (this.state.auth) {
             this.isLoading();
             this.iframe = document.querySelector('iframe');
             this.open(page, this.isLoaded);
             this.loadPageList();
             this.loadBackupsList();
         }
-
     }
 
     open(page, cb) {
@@ -202,19 +215,19 @@ export default class Editor extends Component {
     }
 
     render() {
-        const {loading, pageList, backupsList, auth} = this.state;
+        const {loading, pageList, backupsList, auth, loginError, loginLengthError} = this.state;
         const modal = true;
         let spinner;
         
         loading ? spinner = <Spinner active/> : spinner = <Spinner />
 
-        if (!auth){
-            return <Login login={this.login}/>
+    
+        if (!auth) {
+            return <Login login={this.login} lengthErr={loginLengthError} logErr={loginError}/>
         }
 
         return (
             <>
-
                 <iframe src="" frameBorder="0"></iframe>
                 <input id="img-upload" type="file" accept="image/*" style={{display: 'none'}}></input>
                 
@@ -222,7 +235,26 @@ export default class Editor extends Component {
 
                 <Panel/>
                 
-                <ConfirmModal modal={modal}  target={'modal-save'} method={this.save}/>
+                <ConfirmModal 
+                    modal={modal}  
+                    target={'modal-save'} 
+                    method={this.save}
+                    text={{
+                        title: "Сохранение",
+                        descr: "Вы действительно хотите сохранить изменения?",
+                        btn: "Опубликовать"
+                    }}/>
+                
+                <ConfirmModal 
+                    modal={modal}  
+                    target={'modal-logout'} 
+                    method={this.logout}
+                    text={{
+                        title: "Выход",
+                        descr: "Вы действительно хотите выйти?",
+                        btn: "Выйти"
+                    }}/>
+
                 <ChooseModal modal={modal}  target={'modal-open'} data={pageList} redirect={this.init}/>
                 <ChooseModal modal={modal}  target={'modal-backup'} data={backupsList} redirect={this.restoreBackup}/>
                {this.virtualDom ?  <EditorMeta modal={modal}  target={'modal-meta'} virtualDom={this.virtualDom}/> : false}
