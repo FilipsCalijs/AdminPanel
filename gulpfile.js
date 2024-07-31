@@ -1,8 +1,11 @@
 const gulp = require("gulp");
 const webpack = require("webpack-stream");
- const sass = require('gulp-sass')(require('sass'));
+const sass = require("gulp-sass");
+const autoprefixer = require("autoprefixer");
+const cleanCSS = require("gulp-clean-css");
+const postcss = require("gulp-postcss");
 
-const dist = "B:/promma/xampp/htdocs/react_admin/project/admin";
+const dist = "/Applications/MAMP/htdocs/react_admin/admin";
 const prod = "./build/";
 
 gulp.task("copy-html", () => {
@@ -49,11 +52,11 @@ gulp.task("build-sass", () => {
 });
 
 gulp.task("copy-api", () => {
-  gulp.src("./app/api/**/.*")
-      .pipe(gulp.dest(dist + "/api"));
+    gulp.src("./app/api/**/.*")
+        .pipe(gulp.dest(dist + "/api"));
 
-  return gulp.src("./app/api/**/*.*")
-              .pipe(gulp.dest(dist + "/api"));
+    return gulp.src("./app/api/**/*.*")
+                .pipe(gulp.dest(dist + "/api"));
 });
 
 gulp.task("copy-assets", () => {
@@ -71,25 +74,22 @@ gulp.task("watch", () => {
 
 gulp.task("build", gulp.parallel("copy-html", "copy-assets", "copy-api", "build-sass", "build-js"));
 
+gulp.task("prod", () => {
+    gulp.src("./app/src/index.html")
+        .pipe(gulp.dest(prod));
+    gulp.src("./app/api/**/.*")
+        .pipe(gulp.dest(prod + "/api"));
+    gulp.src("./app/api/**/*.*")
+        .pipe(gulp.dest(prod + "/api"));
+    gulp.src("./app/assets/**/*.*")
+        .pipe(gulp.dest(prod + "/assets"));
 
-gulp.task("prod", ()  => {
-      gulp.src("./app/src/index.html")
-          .pipe(gulp.dest(prod));
-      gulp.src("./app/api/**/.*")
-          .pipe(gulp.dest(prod + "/api"));
-      gulp.src("./app/api/**/*.*")
-          .pipe(gulp.dest(prod + "/api"));
-      gulp.src("./app/assets/**/*.*")
-            .pipe(gulp.dest(prod + "/assets"));
-
-
-      gulp.src("./app/src/main.js")
+    gulp.src("./app/src/main.js")
         .pipe(webpack({
             mode: 'production',
             output: {
                 filename: 'script.js'
             },
-
             module: {
                 rules: [
                   {
@@ -103,17 +103,20 @@ gulp.task("prod", ()  => {
                             corejs: 3,
                             useBuiltIns: "usage"
                         }],
-                          "@babel/react"]
+                         "@babel/react"]
                       }
                     }
                   }
                 ]
               }
         }))
-        .pipe(gulp.dest(dist));
-
-
-        
-})
+        .pipe(gulp.dest(prod));
+    
+    return gulp.src("./app/scss/style.scss")
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss([autoprefixer()]))
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(prod));
+});
 
 gulp.task("default", gulp.parallel("watch", "build"));
