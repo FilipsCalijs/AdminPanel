@@ -16,8 +16,6 @@ Throughout the course of this project, I gained experience in several key areas:
   - **SCSS:** Enhanced CSS styling capabilities.
   - **Webpack:** Module bundling and asset management.
 
-## Challenges Faced
-In the final commit, I encountered an issue that I was unable to resolve. This problem is present on both macOS and Windows, and it might be related to outdated versions of Node.js or npm. If the current version of the project fails to run, I recommend checking out the previous commit or the one before it.
 
 ## Installation and Setup Instructions
 1. **Local Server Setup:**  
